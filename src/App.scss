@@ -22,9 +22,18 @@ $colorText: #9799a0;
   width: 80%;
   margin: auto;
   @include mq {
-    width: 30%;
+    width: 256px;
   }
 }
+.search-select {
+  background-color: #9799a0;
+  width: 80%;
+  margin: auto;
+  @include mq {
+    width: 256px;
+  }
+}
+
 .card-container {
   background-color: $backgroundColor;
   border-radius: 15px;
