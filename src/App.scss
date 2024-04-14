@@ -67,7 +67,16 @@ $colorText: #9799a0;
       margin-bottom: 0;
     }
     p {
+      @include mq() {
+        padding-left: 16px;
+      }
+
       color: $colorText;
+      text-align: left;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
     }
     .separator {
       width: 80%;

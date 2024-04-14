@@ -1,5 +1,9 @@
 export const genres = [
   {
+    id: "",
+    name: "-- Tous les genres --",
+  },
+  {
     id: 28,
     name: "Action",
   },

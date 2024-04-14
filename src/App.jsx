@@ -2,14 +2,18 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import "./App.scss";
 import { genres } from "../genre";
+import Details from "./Details";
+import { Link } from "react-router-dom";
 
 function App() {
-  // const stars = Array(rate).fill("⭐");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [searchContentInResults, setSearchContentInResults] = useState("");
   const [fetchResults, setFetchResults] = useState([]);
   const searchSomething = (e) => {
     setSearchContentInResults(e.currentTarget.value);
+    {
+      console.log(fetchResults);
+    }
   };
 
   function filteredArray(array) {
@@ -29,7 +33,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=fr&page=1&sort_by=popularity.desc${selectedGenre}`,
+      `https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=fr-FR&page=1&sort_by=popularity.desc${selectedGenre}`,
       options,
     )
       .then((r) => r.json())
@@ -46,35 +50,16 @@ function App() {
         className="search-select"
         onChange={(e) => setSelectedGenre("&with_genres=" + e.currentTarget.value.toString())}
       >
-        <option value="">--Tous les genres--</option>
-        <option value="28">Action</option>
-        <option value="12">Aventure</option>
-        <option value="16">Animation</option>
-        <option value="35">Comédie</option>
-        <option value="80">Crime</option>
-        <option value="99">Documentaire</option>
-        <option value="18">Drame</option>
-        <option value="10751">Familial</option>
-        <option value="14">Fantastique</option>
-        <option value="36">Histoire</option>
-        <option value="27">Horreur</option>
-        <option value="10402">Musique</option>
-        <option value="9648">Mystère</option>
-        <option value="10749">Romance</option>
-        <option value="878">Science-Fiction</option>
-        <option value="10770">Téléfilm</option>
-        <option value="53">Thriller</option>
-        <option value="10752">Guerre</option>
-        <option value="37">Western</option>
+        {genres.map((el) => (
+          <option value={el.id.toString()}>{el.name}</option>
+        ))}
       </select>
-
       <input
         type="search"
         placeholder="search a movie in results"
         onChange={searchSomething}
         className="search-bar"
       ></input>
-
       <p>
         {filteredArray(fetchResults).length === 0
           ? "Il semblerait qu'aucun film ne corresponde à votre recherche"
@@ -91,8 +76,9 @@ function App() {
               <em>{film.release_date.split("-").reverse().join("-")}</em>
               <p>{Array(Math.floor(film.vote_average)).fill("⭐")}</p>
               <div className="separator"></div>
-              <h3>Synopsis : </h3>
-              <p>{film.overview}</p>
+              <h3>{film.overview && "Synopsis : "}</h3>
+              <p>{film.overview !== "" ? film.overview : <em>Aucune description disponible</em>}</p>
+              <Link to={`/details/${film.id}`}>Détails</Link>
             </div>
           </div>
         ))}
