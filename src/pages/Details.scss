@@ -1,0 +1,94 @@
+$backgroundColor: #dfdfdf;
+$spacing: 8px;
+$spacingDouble: $spacing * 2;
+$colorTitle: #272727;
+$colorText: #515152;
+
+@mixin flexDisplay($direction: column, $align: center, $justify: center) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  gap: 8px;
+}
+
+@mixin mq($breakpoint: 768px) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+.casting {
+  @include flexDisplay(row);
+  flex-wrap: wrap;
+}
+
+.actor-container {
+  background-color: $backgroundColor;
+  border-radius: 15px;
+  padding: $spacingDouble;
+  box-shadow: 2px 2px 4px rgb(80, 80, 80);
+  @include flexDisplay();
+  @include mq() {
+    @include flexDisplay(row, center, center);
+    width: 15vw;
+  }
+  .actor-img {
+    @include mq() {
+      width: 25%;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .actor-description {
+    @include mq() {
+      width: 50%;
+      height: 150px;
+    }
+    h2 {
+      color: $colorTitle;
+      margin: 0;
+    }
+    h3 {
+      color: $colorTitle;
+      margin-bottom: 0;
+    }
+    p {
+      @include mq() {
+      }
+
+      color: $colorText;
+      text-align: left;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
+    }
+    .separator {
+      width: 80%;
+      padding: 0.5px;
+      background-color: $colorText;
+      margin-block: 5%;
+    }
+    .avaible-subtitles {
+      width: 100%;
+      @include flexDisplay(row, center, space-around);
+      @include mq() {
+        @include flexDisplay(row, center, center);
+      }
+
+      span {
+        padding-block: $spacing;
+        padding-inline: 8px;
+        background-color: $colorText;
+        border-radius: 20px;
+        &:hover {
+          background-color: lighten($color: $colorText, $amount: 20);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
