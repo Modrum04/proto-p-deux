@@ -3,12 +3,14 @@
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
-  display: flex;
+  /*  display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
   gap: 1rem;
 }
-
+ul {
+  list-style-type: none;
+}
 .cards {
   display: flex;
   flex-direction: row;
